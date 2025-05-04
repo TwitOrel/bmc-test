@@ -1,11 +1,15 @@
 <header>
-    <div class="nav-categories">
-      <a routerLink="products">products</a>
-      <a routerLink="cart">Cart</a>
-    </div>
-  
-    <div class="user-info">{{ user?.email }}</div>
-  </header>
-  
-  <router-outlet></router-outlet>
-  
+  <div class="nav-categories">
+    <a routerLink="products" routerLinkActive="active">Products</a>
+    <a routerLink="cart" routerLinkActive="active">Cart</a>
+
+  </div>
+
+  <div class="user-info">
+    {{ user?.email }}
+  </div>
+</header>
+
+<router-outlet></router-outlet>
+
+<button class="logout-button" (click)="logout()">Logout</button>

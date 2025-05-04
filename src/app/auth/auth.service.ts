@@ -25,6 +25,11 @@ export class AuthService {
     }
 
     localStorage.setItem(this.CURRENT_KEY, JSON.stringify({ email }));
+    // cartKey used to store all items the current user added to his cart
+    const cartKey = `cart__${email}`;
+    if (!localStorage.getItem(cartKey)) {
+      localStorage.setItem(cartKey, JSON.stringify([]));
+    }
     return 'Success';
   }
 
