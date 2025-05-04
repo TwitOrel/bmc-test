@@ -1,0 +1,40 @@
+<div class="register-container">
+    <h2>Sign up</h2>
+  
+    <form (ngSubmit)="register()" #registerForm="ngForm">
+      <div class="input-group">
+        <input
+          type="email"
+          placeholder="Your Email"
+          [(ngModel)]="email"
+          name="email"
+          required
+        />
+      </div>
+  
+      <div class="input-group">
+        <input
+          type="password"
+          placeholder="Password"
+          [(ngModel)]="password"
+          name="password"
+          required
+        />
+      </div>
+  
+      <div class="input-group">
+        <input
+          type="password"
+          placeholder="Repeat your password"
+          [(ngModel)]="repeatPassword"
+          name="repeatPassword"
+          required
+        />
+      </div>
+  
+      <button type="submit" [disabled]="registerForm.invalid">Register</button>
+  
+      <p class="error" *ngIf="error">{{ error }}</p>
+    </form>
+  </div>
+  
