@@ -13,13 +13,19 @@ export class AuthService {
     return true;
   }
 
-  login(email: string, password: string): boolean {
+  login(email: string, password: string): 'Success' | 'Wrong-password' | 'Wrong-eamil' {
     const users = this.getAllUsers();
-    if (users[email]?.password === password) {
-      localStorage.setItem(this.CURRENT_KEY, JSON.stringify({ email }));
-      return true;
+
+    if (!users[email]) {
+      return 'Wrong-eamil';
     }
-    return false;
+
+    if (users[email].password !== password) {
+      return 'Wrong-password';
+    }
+
+    localStorage.setItem(this.CURRENT_KEY, JSON.stringify({ email }));
+    return 'Success';
   }
 
   logout(): void {

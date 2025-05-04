@@ -21,12 +21,14 @@ export class LoginComponent {
   constructor(private auth: AuthService, private router: Router) {}
 
   login(): void {
-    const success = this.auth.login(this.email, this.password);
-    if (success) {
+    const result = this.auth.login(this.email, this.password);
+
+    if (result === 'Success') {
       this.router.navigate(['/dashboard']);
-    } 
-    else {
-      this.error = 'Email or password is incorrect';
+    } else if (result === 'Wrong-eamil') {
+      this.error = 'Email does not exist';
+    } else if (result === 'Wrong-password') {
+      this.error = 'Incorrect password';
     }
   }
 }

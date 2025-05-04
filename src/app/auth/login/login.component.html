@@ -1,10 +1,30 @@
-<h2>Login</h2>
+<div class="auth-container">
+  <h2>Login</h2>
 
-<form (ngSubmit)="login()">
-  <input type="email" placeholder="Email" [(ngModel)]="email" name="email" required />
-  <input type="password" placeholder="Password" [(ngModel)]="password" name="password" required />
-  <button type="submit">log-in</button>
-</form>
+  <form (ngSubmit)="login()" #loginForm="ngForm">
+    <input
+      type="email"
+      placeholder="Email"
+      [(ngModel)]="email"
+      name="email"
+      required
+      autocomplete="email"
+    />
+    <input
+      type="password"
+      placeholder="Password"
+      [(ngModel)]="password"
+      name="password"
+      required
+      autocomplete="current-password"
+    />
+    <button type="submit" [disabled]="loginForm.invalid">Log in</button>
+  </form>
 
-<p *ngIf="error" style="color: red;">{{ error }}</p>
-<p>dont have username?<a routerLink="/register">Register now</a></p>
+  <p *ngIf="error" class="error">{{ error }}</p>
+
+  <p>
+    Don't have an account?
+    <a routerLink="/register">Register now</a>
+  </p>
+</div>
