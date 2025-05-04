@@ -1,1 +1,27 @@
-<p>cart works!</p>
+<h2>Your Cart</h2>
+
+<div class="cart-grid" *ngIf="cartItems.length; else empty">
+  <div class="cart-item" *ngFor="let p of cartItems">
+    <img [src]="p.product.image" alt="{{ p.product.name }}" />
+
+    <div class="details">
+      <strong>{{ p.product.name }}</strong><br />
+      Quantity: {{ p.quantity }}<br />
+      Price: {{ p.product.price | currency:'GBP' }}<br />
+      Total: {{ p.product.price * p.quantity | currency:'GBP' }}
+    </div>
+
+    <div class="actions">
+      <button (click)="addItem(p.product.id)">+</button>
+      <button (click)="removeItem(p.product.id)">–</button>
+    </div>
+  </div>
+
+  <div class="total">
+    Total: {{ getTotalPrice() | currency:'GBP' }}
+  </div>
+</div>
+
+<ng-template #empty>
+  <p>Your cart is empty.</p>
+</ng-template>
