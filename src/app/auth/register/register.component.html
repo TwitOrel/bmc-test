@@ -5,10 +5,13 @@
       <div class="input-group">
         <input
           type="email"
+          name="email"
           placeholder="Your Email"
           [(ngModel)]="email"
-          name="email"
           required
+          email
+          #emailInput="ngModel"
+          autocomplete="email"
         />
       </div>
   
@@ -19,6 +22,7 @@
           [(ngModel)]="password"
           name="password"
           required
+          autocomplete="new-password"
         />
       </div>
   
@@ -29,6 +33,7 @@
           [(ngModel)]="repeatPassword"
           name="repeatPassword"
           required
+          autocomplete="new-password"
         />
       </div>
   
@@ -36,5 +41,10 @@
   
       <p class="error" *ngIf="error">{{ error }}</p>
     </form>
+
+    <p class="login-link">
+        Already have an account?
+        <a routerLink="/login">Log in</a>
+    </p>
   </div>
   

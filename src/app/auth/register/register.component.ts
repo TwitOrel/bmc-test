@@ -3,13 +3,13 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { RouterModule } from '@angular/router';
 
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
@@ -26,13 +26,29 @@ export class RegisterComponent {
       this.error = 'Passwords do not match';
       return;
     }
-
-    const success = this.auth.register(this.email, this.password);
+  
+    const passwordValidationError = this.validatePassword();
+    if (passwordValidationError) {
+      this.error = passwordValidationError;
+      return;
+    }
+  
+  const success = this.auth.register(this.email, this.password);
     if (success) {
       this.router.navigate(['/login']);
     } else {
       this.error = 'Email already exists';
     }
+  }
+  
+  validatePassword(): string | null {
+    if (this.password.length < 6) {
+      return 'Password must be at least 6 characters';
+    }
+    if (!/[A-Z]/.test(this.password)) {
+      return 'Password must contain at least one uppercase letter';
+    }
+    return null;
   }
   
 }
