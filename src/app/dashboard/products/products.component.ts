@@ -37,9 +37,6 @@ export class ProductsComponent {
     else {
       cart.push({ id: productId, quantity: 1 });
     }
-    
     localStorage.setItem(cartKey, JSON.stringify(cart));
-
-    console.log('Adding to cart:', item);
   }
 }

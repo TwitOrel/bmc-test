@@ -64,6 +64,12 @@ export class ProductService {
       name: 'Cat',
       image: 'assets/images/cat.jpg',
       price: 275
+    },
+    {
+      id: 12,
+      name: 'Boat',
+      image: 'assets/images/boat.jpg',
+      price: 390
     }
   ];
 

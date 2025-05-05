@@ -20,14 +20,13 @@ header {
     font-weight: bold;
   }
   
+  .nav-categories a:hover {
+    color: white;
+  }
 
   .nav-categories a.active {
     color: white;
     border-bottom: 3px solid #3b82f6; 
-  }
-
-  .nav-categories a:hover {
-    color: #3b82f6;
   }
   
   .user-info {

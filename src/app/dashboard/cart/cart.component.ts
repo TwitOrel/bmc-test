@@ -37,7 +37,6 @@ export class CartComponent {
     return this.cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
   }
 
-  //TODO~~~ טיפול
   addItem(productId: number): void {
     const userData = localStorage.getItem('user');
     if (!userData) return;
