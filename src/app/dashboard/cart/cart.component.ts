@@ -27,9 +27,7 @@ export class CartComponent {
 
     this.cartItems = rawCart.map(item => {
       const product = allProducts.find(p => p.id === item.id);
-      return product
-        ? { product, quantity: item.quantity }
-        : null;
+      return product ? { product, quantity: item.quantity } : null;
     }).filter(Boolean) as { product: Product; quantity: number }[];
   }
 

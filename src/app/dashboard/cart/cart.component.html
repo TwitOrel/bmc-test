@@ -7,8 +7,8 @@
     <div class="details">
       <strong>{{ p.product.name }}</strong><br />
       Quantity: {{ p.quantity }}<br />
-      Price: {{ p.product.price | currency:'GBP' }}<br />
-      Total: {{ p.product.price * p.quantity | currency:'GBP' }}
+      Price: {{ p.product.price | currency:'ILS' }}<br />
+      Total: {{ p.product.price * p.quantity | currency:'ILS' }}
     </div>
 
     <div class="actions">
@@ -18,7 +18,7 @@
   </div>
 
   <div class="total">
-    Total: {{ getTotalPrice() | currency:'GBP' }}
+    Total: {{ getTotalPrice() | currency:'ILS' }}
   </div>
 </div>
 

@@ -25,7 +25,7 @@ export class LoginComponent {
 
     if (result === 'Success') {
       this.router.navigate(['/dashboard']);
-    } else if (result === 'Wrong-eamil') {
+    } else if (result === 'Wrong-email') {
       this.error = 'Email does not exist';
     } else if (result === 'Wrong-password') {
       this.error = 'Incorrect password';

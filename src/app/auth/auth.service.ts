@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly USERS_KEY = 'users';
-  private readonly CURRENT_KEY = 'user';
+  private readonly CURRENT_USER = 'user';
 
   register(email: string, password: string): boolean {
     const users = this.getAllUsers();
@@ -13,18 +13,18 @@ export class AuthService {
     return true;
   }
 
-  login(email: string, password: string): 'Success' | 'Wrong-password' | 'Wrong-eamil' {
+  login(email: string, password: string): 'Success' | 'Wrong-password' | 'Wrong-email' {
     const users = this.getAllUsers();
 
     if (!users[email]) {
-      return 'Wrong-eamil';
+      return 'Wrong-email';
     }
 
     if (users[email].password !== password) {
       return 'Wrong-password';
     }
 
-    localStorage.setItem(this.CURRENT_KEY, JSON.stringify({ email }));
+    localStorage.setItem(this.CURRENT_USER, JSON.stringify({ email }));
     // cartKey used to store all items the current user added to his cart
     const cartKey = `cart__${email}`;
     if (!localStorage.getItem(cartKey)) {
@@ -34,11 +34,11 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem(this.CURRENT_KEY);
+    localStorage.removeItem(this.CURRENT_USER);
   }
 
   getUser(): { email: string } | null {
-    const user = localStorage.getItem(this.CURRENT_KEY);
+    const user = localStorage.getItem(this.CURRENT_USER);
     return user ? JSON.parse(user) : null;
   }
 

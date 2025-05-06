@@ -1,5 +1,5 @@
 <div class="product-count">
-    <strong>{{ products.length }}</strong> PRODUCTS FOUND
+    <strong>PRODUCTS FOUND: {{ products.length }}</strong>
   </div>
 
 <div class="product-grid">
@@ -8,7 +8,7 @@
       <h4>{{ product.name }}</h4>
       <div class="bottom-row">
         <button (click)="addToCart(product.id)">Add</button>
-        <span class="price">{{ product.price | currency:'GBP' }}</span>
+        <span class="price">{{ product.price | currency:'ILS' }}</span>
       </div>
     </div>
   </div>
