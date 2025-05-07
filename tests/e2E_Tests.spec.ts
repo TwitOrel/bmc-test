@@ -12,6 +12,7 @@ test('User can register, login, add products to cart, and logout', async ({ page
   await page.getByRole('textbox', { name: 'Password', exact: true }).fill('123456A');
   await page.getByRole('textbox', { name: 'Repeat your password' }).fill('123456A');
   await page.getByRole('button', { name: 'Register' }).click();
+  await page.waitForTimeout(5000);
   await expect(page).toHaveURL('http://localhost:4200/login');
 
   // Log-in

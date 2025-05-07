@@ -1,13 +1,33 @@
 # BmcTest
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.9.
+We currently have two versions of the codebase
 
-## Development server
+- The main branch uses localStorage to manage data information on the client side.
+- The connectingToAPI branch implements an API stores data in a SQLite database on the server side.
+- This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.9.
 
-To start a local development server, run: ng serve
+## Two type of the project version
 
+the [first version](#development-anguler-main-branch) is locate in the main branch and simple using Local Storage 
+
+the [second version] ()
+
+## Development Anguler main branch
+
+To start a anguler server, run: ng serve
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
+note: for tests, run [end-to-end tests](#running-end-to-end-tests) 
+
+## Development Anguler connectingToAPI branch
+
+To start a anguler server:
+    - run the anguler: ng serve
+    - and also run the bmc-test-backend: node server.js
+        in bmc-test-backend we have tests using by postman
+
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+in this branch we have code that using API and SQLite database
 
 ## Running end-to-end tests
 
@@ -20,7 +40,7 @@ You can also run both tests using a custom script (runTests.sh):
 
     ./runTests.sh
 
-## Details on the application
+## Details on the application on the main
 
 User data (e.g., registration, login) is stored in Local Storage.
 
@@ -34,5 +54,3 @@ For example:
 
 Have 2 Lazy loading modules – One for Products & One for Cart
 
-
-TODO~~~ create simple server side

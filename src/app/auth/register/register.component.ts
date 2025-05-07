@@ -33,12 +33,15 @@ export class RegisterComponent {
       return;
     }
   
-  const success = this.auth.register(this.email, this.password);
-    if (success) {
-      this.router.navigate(['/login']);
-    } else {
-      this.error = 'Email already exists';
-    }
+    this.auth.register(this.email, this.password).subscribe({
+      next: () => {
+        console.log(`Wellcome ${this.email}`)
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        this.error = err.error?.error || 'Registration failed';
+      }
+    });
   }
   
   validatePassword(): string | null {

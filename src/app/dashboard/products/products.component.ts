@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../services/product.service';
+import { CartService } from '../../services/cart.service';
+
 
 @Component({
   selector: 'app-products',
@@ -13,7 +15,7 @@ import { Product } from '../../services/product.service';
 export class ProductsComponent {
   products: Product[] = [];
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private cartService: CartService) {}
 
   ngOnInit(): void {
     this.products = this.productService.getProducts();
@@ -25,18 +27,16 @@ export class ProductsComponent {
       console.warn('Problem: user not logged in');
       return;
     }
-
+  
     const { email } = JSON.parse(userData);
-    const cartKey = `cart__${email}`;
-    const cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
-
-    const item = cart.find((p: any) => p.id === productId);
-    if (item) {
-      item.quantity += 1;
-    } 
-    else {
-      cart.push({ id: productId, quantity: 1 });
-    }
-    localStorage.setItem(cartKey, JSON.stringify(cart));
+  
+    this.cartService.addProduct(email, productId).subscribe({
+      next: (res) => {
+        console.log('Product added:', res);
+      },
+      error: (err) => {
+        console.error('Failed to add product:', err);
+      }
+    });
   }
 }

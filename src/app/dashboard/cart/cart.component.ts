@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product.service';
+import { CartService } from '../../services/cart.service';
 import { Product } from '../../services/product.service';
 
 @Component({
@@ -12,68 +13,33 @@ import { Product } from '../../services/product.service';
 })
 export class CartComponent {
   cartItems: { product: Product; quantity: number }[] = [];
+  email: string = "";
+  constructor(private productService: ProductService, private cartService: CartService) {}
 
-  constructor(private productService: ProductService) {}
+  getTotalPrice(): number {
+    return this.cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+  }
 
   ngOnInit(): void {
     const userData = localStorage.getItem('user');
     if (!userData) return;
 
     const { email } = JSON.parse(userData);
-    const cartKey = `cart__${email}`;
-    const rawCart: { id: number; quantity: number }[] = JSON.parse(localStorage.getItem(cartKey) || '[]');
-
-    const allProducts = this.productService.getProducts();
-
-    this.cartItems = rawCart.map(item => {
-      const product = allProducts.find(p => p.id === item.id);
-      return product ? { product, quantity: item.quantity } : null;
-    }).filter(Boolean) as { product: Product; quantity: number }[];
-  }
-
-  getTotalPrice(): number {
-    return this.cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+    this.email = email;
+    this.cartService.getUserCart(email).subscribe(cartData => {
+      const allProducts = this.productService.getProducts();
+      this.cartItems = cartData.map(item => {
+        const product = allProducts.find(p => p.id === item.product_id);
+        return product ? { product, quantity: item.quantity } : null;
+      }).filter(Boolean) as { product: Product; quantity: number }[];
+    });
   }
 
   addItem(productId: number): void {
-    const userData = localStorage.getItem('user');
-    if (!userData) return;
-  
-    const { email } = JSON.parse(userData);
-    const cartKey = `cart__${email}`;
-    const rawCart: { id: number; quantity: number }[] = JSON.parse(localStorage.getItem(cartKey) || '[]');
-  
-    const item = rawCart.find(p => p.id === productId);
-    if (item) {
-      item.quantity += 1;
-    } else {
-      rawCart.push({ id: productId, quantity: 1 });
-    }
-  
-    localStorage.setItem(cartKey, JSON.stringify(rawCart));
-    this.ngOnInit(); 
+    this.cartService.addProduct(this.email, productId).subscribe(() => this.ngOnInit());
   }
-  
+
   removeItem(productId: number): void {
-    const userData = localStorage.getItem('user');
-    if (!userData) return;
-  
-    const { email } = JSON.parse(userData);
-    const cartKey = `cart__${email}`;
-  
-    const rawCart: { id: number; quantity: number }[] = JSON.parse(localStorage.getItem(cartKey) || '[]');
-  
-    const itemIndex = rawCart.findIndex(item => item.id === productId);
-    if (itemIndex === -1) return;
-  
-    rawCart[itemIndex].quantity -= 1;
-  
-    if (rawCart[itemIndex].quantity <= 0) {
-      rawCart.splice(itemIndex, 1);
-    }
-  
-    localStorage.setItem(cartKey, JSON.stringify(rawCart));
-  
-    this.ngOnInit();
+    this.cartService.removeProduct(this.email, productId).subscribe(() => this.ngOnInit());
   }
 }
