@@ -1,59 +1,56 @@
 # BmcTest
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.9.
+We currently have two versions of the codebase
 
-## Development server
+- The main branch uses localStorage to manage data information on the client side.
+- The connectingToAPI branch implements an API and stores the data in a SQLite database on the server side.
+- This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.9.
 
-To start a local development server, run:
+## Two type of the project version
 
-```bash
-ng serve
-```
+the [first version](#development-anguler-main-branch) is locate in the main branch and simple using Local Storage 
 
+the [second version](#development-anguler-connectingtoapi-branch) use API and stores the data in a SQLite database
+
+## Development Anguler main branch
+
+To start a anguler server, run: ng serve
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
+note: for tests, run [end-to-end tests](#running-end-to-end-tests) 
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Development Anguler connectingToAPI branch
 
-```bash
-ng generate component component-name
-```
+To start a anguler server:
+    - run the anguler: ng serve
+    - and also run the bmc-test-backend: node server.js
+        in bmc-test-backend we have tests using by postman
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+in this branch we have code that using API and SQLite database
 
 ## Running end-to-end tests
 
-For end-to-end (e2e) testing, run:
+There are two types of E2E tests: the standard E2E test and an extended version.
+To run a specific test (e.g., e2E_Tests.spec.ts), use:
 
-```bash
-ng e2e
-```
+    npx playwright test tests/e2E_Tests.spec.ts
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+You can also run both tests using a custom script (runTests.sh):
 
-## Additional Resources
+    ./runTests.sh
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Details on the application on the main
+
+User data (e.g., registration, login) is stored in Local Storage.
+
+In addition, for each signed-in user, their cart is saved using a key based on their email.
+For example:
+
+    cart__email: {his cart}
+    cart__oreltwito3@gmail.com: [{"id":3,"quantity":4},{"id":2,"quantity":4}]
+
+## Branch BonusTasks
+
+Have 2 Lazy loading modules – One for Products & One for Cart
+
