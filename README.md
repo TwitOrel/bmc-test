@@ -3,14 +3,14 @@
 We currently have two versions of the codebase
 
 - The main branch uses localStorage to manage data information on the client side.
-- The connectingToAPI branch implements an API stores data in a SQLite database on the server side.
+- The connectingToAPI branch implements an API and stores the data in a SQLite database on the server side.
 - This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.9.
 
 ## Two type of the project version
 
 the [first version](#development-anguler-main-branch) is locate in the main branch and simple using Local Storage 
 
-the [second version] ()
+the [second version](#development-anguler-connectingtoapi-branch) use API and stores the data in a SQLite database
 
 ## Development Anguler main branch
 
